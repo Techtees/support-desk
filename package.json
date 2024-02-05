@@ -7,7 +7,7 @@
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "cd frontend && yarn start",
-    "dev":"concurrently \"yarn server\" \"yarn client\""
+    "dev": "concurrently \"yarn server\" \"yarn client\""
   },
   "author": "Taiwo Joshua",
   "license": "MIT",
