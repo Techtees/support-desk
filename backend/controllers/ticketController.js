@@ -5,7 +5,7 @@ const Ticket = require('../models/ticketModel')
 
 
 
-// Get ticket
+// Get tickets
 //Route GET /api/tickets
 //access private
 
@@ -22,6 +22,35 @@ const getTickets = asyncHandler(
          res.status(200).json(tickets)
     }
 )
+
+// Get single tickets
+//Route GET /api/tickets/id
+//access private
+const getSingleTicket = asyncHandler(
+    async(req, res) => {
+        const user = await User.findById(req.user)
+
+        if(!user){
+            res.status(401)
+            throw new Error('User not found')
+        }
+
+        const ticket = await Ticket.findById(req.params.id)
+
+        if(!ticket) {
+            res.status(404)
+            throw new Error('Ticket not found')
+        }
+
+        if(ticket.user.toString() !== req.user.id){
+            res.status(401)
+            throw new Error('Not authorized')
+        }
+
+        res.status(200).json(ticket)
+    }
+)
+
 
 // Create a new ticket
 //Route POST /api/tickets
@@ -58,4 +87,5 @@ const createTickets = asyncHandler(
 module.exports = {
     getTickets,
     createTickets,
+    getSingleTicket,
 }
