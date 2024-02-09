@@ -47,7 +47,37 @@ const getSingleTicket = asyncHandler(
             throw new Error('Not authorized')
         }
 
-        res.status(200).json(ticket)
+        res.status(200).json(ticket )
+    }
+)
+
+
+// Delete tickets
+//Route GET /api/tickets/id
+//access private
+const deleteTicket = asyncHandler(
+    async(req, res) => {
+        const user = await User.findById(req.user)
+
+        if(!user){
+            res.status(401)
+            throw new Error('User not found')
+        }
+
+        const ticket = await Ticket.findById(req.params.id)
+
+        if(!ticket) {
+            res.status(404)
+            throw new Error('Ticket not found')
+        }
+
+        if(ticket.user.toString() !== req.user.id){
+            res.status(401)
+            throw new Error('Not authorized')
+        }
+        await ticket.deleteOne()
+
+        res.status(200).json({success: true})
     }
 )
 
@@ -83,9 +113,40 @@ const createTickets = asyncHandler(
     }
 )
 
+// Update tickets
+//Route GET /api/tickets/id
+//access private
+const updateTicket = asyncHandler(
+    async(req, res) => {
+        const user = await User.findById(req.user)
+
+        if(!user){
+            res.status(401)
+            throw new Error('User not found')
+        }
+
+        const ticket = await Ticket.findById(req.params.id)
+
+        if(!ticket) {
+            res.status(404)
+            throw new Error('Ticket not found')
+        }
+
+        if(ticket.user.toString() !== req.user.id){
+            res.status(401)
+            throw new Error('Not authorized')
+        }
+        const updatedTicket = await Ticket.findByIdAndUpdate(req.params.id, req.body, {new: true})
+
+        res.status(200).json(updatedTicket)
+    }
+)
+
 
 module.exports = {
     getTickets,
     createTickets,
     getSingleTicket,
+    deleteTicket,
+    updateTicket
 }
