@@ -1,15 +1,43 @@
-import {useState} from 'react'
-import {useSelector} from 'react-redux'
+import {useState, useEffect} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-toastify'
+import {createTicket, reset} from '../features/ticket/ticketSlice'
+import Spinner from '../component/Spinner'
+
 
 function NewTicket() {
     const {user} = useSelector((state) => state.auth)
+    const {isLoading, isError, isSuccess, message} = useSelector((state) => state.ticket)
+
     const[name] = useState(user.name)
     const[email] = useState(user.email)
-    const[product, setProduct] = useState('')
+    const[product, setProduct] = useState('iPhone')
     const[description, setDescription] = useState('')
 
-    const handleSubmit = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
+    useEffect(() => {
+        if(isError) {
+            toast.error(message)
+        }
+
+        if(isSuccess) {
+            dispatch(reset())
+            navigate('/tickets')
+        }
+
+        dispatch(reset())
+    }, [isError, isSuccess, message, navigate, dispatch])
+
+    if(isLoading) {
+        return <Spinner />
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(createTicket({product,description}))
     }
     return ( 
         <>
@@ -47,7 +75,7 @@ function NewTicket() {
                             onChange={ (e) => setProduct(e.target.value)}
                         >
                             <option value="iPhone">iPhone</option>
-                            <option value="Mackbook Pro">Macbook Pro</option>
+                            <option value="Macbook Pro">Macbook Pro</option>
                             <option value="iMac">iMac</option>
                             <option value="iPad">iPad</option>
                             
