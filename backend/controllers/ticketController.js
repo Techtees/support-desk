@@ -109,7 +109,7 @@ const createTickets = asyncHandler(
 
         })
         res.status(200).json(tickets)
-        res.status(200).json({message:'CreateTicket'})
+        // res.status(200).json({message:'CreateTicket'})
     }
 )
 

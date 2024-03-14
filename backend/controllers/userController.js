@@ -70,13 +70,13 @@ const loginUser = asyncHandler(
                 email: user.email,
                 token: generateToken(user._id)
             })
-            res.message("successfully logged in")
+            // res.message("successfully logged in")
         } else {
             res.status(401)
             throw new Error('Invalid credentials')
         }
 
-        res.send('Login Route')
+        // res.send('Login Route')
     }
 ) 
 
