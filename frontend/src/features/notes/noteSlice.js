@@ -10,10 +10,10 @@ const initialState = {
 }
 // Get ticket notes
 export const getNotes = createAsyncThunk('notes/getAll',
-async (_, thunkApi) => {
+async (ticketId, thunkApi) => {
    try {
        const token = thunkApi.getState().auth.user.token
-      return await noteService.getNotes(token)
+      return await noteService.getNotes(ticketId,token)
    } catch (error) {
       const message = (error.response && error.response.data && error.response.data.message ||error.message||error.toString())
 
