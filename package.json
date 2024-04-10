@@ -11,7 +11,9 @@
     "server": "nodemon backend/server.js",
     "client": "cd frontend && yarn start",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install && cd frontend && yarn build"
+    "build":"cd frontend && yarn build",
+    "install-client":"cd frontend && yarn install",
+    "heroku-postbuild":"yarn install-client && yarn build"
   },
   "author": "Taiwo Joshua",
   "license": "MIT",
