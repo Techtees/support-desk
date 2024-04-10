@@ -2,6 +2,9 @@
   "name": "support-desk",
   "version": "1.0.0",
   "description": "Support desk app",
+  "engines": {
+    "node": "18.18.0"
+  },
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",
