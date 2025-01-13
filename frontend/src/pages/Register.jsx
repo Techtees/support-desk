@@ -27,11 +27,12 @@ function Register() {
         }
 
         //Redirect when logged in
-        if(isSuccess || user){
+        if(isSuccess){
+            toast.success("Successfully logged in")
             navigate('/')
         }
 
-        dispatch(reset)
+        dispatch(reset())
     }, [isError, isLoading, message,isSuccess,user, navigate,dispatch])
 
     const handleInputChange = (e) => {
