@@ -4,7 +4,7 @@
   "proxy": "http://localhost:5000",
   "private": true,
   "engines": {
-    "node": "18.18.0"
+    "node": "20.16.0"
   },
   "dependencies": {
     "@reduxjs/toolkit": "1.8.1",

@@ -27,8 +27,8 @@ function Login() {
         if(isSuccess || user) {
             navigate('/')
         }
-        dispatch(reset)
-    },[user, isSuccess, isLoading, isError, message, navigate, dispatch])
+        dispatch(reset())
+    },[isSuccess, isLoading, isError, message, navigate, dispatch])
 
     const handleInputChange = (e) => {
         setFormData((prevState) => ({
